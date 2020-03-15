@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineShop.Commom;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,8 +12,21 @@ namespace OnlineShop.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
-            return View();
-           
+            try
+            {
+                var session = Session[CommonConstants.ADMIN_SESSION];
+                if (session.Equals(null))
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+            } catch (Exception e)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+               
+                
+            
+            return View();          
         }
         
     }
